@@ -1,6 +1,10 @@
 public class Board {
     private char[][] cells = new char[3][3];
 
+    public char[][] getCells() {
+        return cells;
+    }
+
     public Board(){
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
@@ -52,5 +56,47 @@ public class Board {
         System.out.println("-------");
     }
 
+    public GameState checkGameState() {
+        // check rows
+        for (int i = 0; i < 3; i++) {
+            if (cells[i][0] != ' ' &&
+                    cells[i][0] == cells[i][1] &&
+                    cells[i][1] == cells[i][2]) {
 
+                return (cells[i][0] == 'x')
+                        ? GameState.X_WINS
+                        : GameState.O_WINS;
+            }
+        }
+        // check columns
+        for (int i = 0; i < 3; i++) {
+            if (cells[0][i] != ' ' &&
+                    cells[0][i] == cells[1][i] &&
+                    cells[0][i] == cells[2][i]) {
+
+                return (cells[0][i] == 'x')
+                        ? GameState.X_WINS
+                        : GameState.O_WINS;
+            }
+        }
+        // check diagonal
+        if (cells[0][2] != ' ' &&
+                cells[0][2] == cells[1][1] &&
+                cells[1][1] == cells[2][0]) {
+
+            return (cells[0][2] == 'x')
+                    ? GameState.X_WINS
+                    : GameState.O_WINS;
+        }
+        // ceck if there are still empty spaces
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (cells[x][y] == ' ') {
+                    return GameState.RUNNING;
+                }
+            }
+        }
+        // if none of the above, the game ends in a draw since if GameState isn't .RUNNING, it's over.
+        return GameState.DRAW;
+    }
 }

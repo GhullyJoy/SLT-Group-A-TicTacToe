@@ -37,6 +37,26 @@ public class TicTacToe {
             System.out.print("Column(0-2): ");
             y= sc.nextInt();
             board.place(x,y, currentPlayer.getMarker());
+
+            // check game state before switching
+
+            GameState state = board.checkGameState();
+
+            if (state == GameState.X_WINS) {
+                board.print();
+                System.out.println("X gewinnt!");
+                return;
+            }
+            if (state == GameState.O_WINS) {
+                board.print();
+                System.out.println("O gewinnt!");
+                return;
+            }
+            if (state == GameState.DRAW) {
+                board.print();
+                System.out.println("Unentschieden!");
+                return;
+            }
             switchCurrentPlayer();
         }
     }
