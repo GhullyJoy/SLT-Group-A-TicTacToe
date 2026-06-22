@@ -14,18 +14,31 @@ public class TicTacToe {
         this.currentPlayer = player1;
     }
 
+    private void switchCurrentPlayer(){
+        if(currentPlayer == player1){
+            currentPlayer = player2;
+        }
+        else if(currentPlayer == player2){
+            currentPlayer = player1;
+        }
+    }
+
     public void start(){
         int x,y;
         Scanner sc= new Scanner(System.in);
 
-        System.out.print("Row(0-2): ");
-        x= sc.nextInt();
+        while(true){
+            board.print();
+            System.out.print("Row(0-2): ");
+            x= sc.nextInt();
 
-        System.out.println();
+            System.out.println();
 
-        System.out.print("Column(0-2): ");
-        y= sc.nextInt();
-
-        board.place(x,y, currentPlayer.getMarker());
+            System.out.print("Column(0-2): ");
+            y= sc.nextInt();
+            board.place(x,y, currentPlayer.getMarker());
+            switchCurrentPlayer();
+        }
     }
+
 }
