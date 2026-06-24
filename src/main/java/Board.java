@@ -79,7 +79,7 @@ public class Board {
                         : GameState.O_WINS;
             }
         }
-        // check diagonal
+        // check anit-diagonal
         if (cells[0][2] != ' ' &&
                 cells[0][2] == cells[1][1] &&
                 cells[1][1] == cells[2][0]) {
@@ -88,7 +88,16 @@ public class Board {
                     ? GameState.X_WINS
                     : GameState.O_WINS;
         }
-        // ceck if there are still empty spaces
+        // check main diagonal
+        if (cells[0][0] != ' ' &&
+                cells[0][0] == cells[1][1] &&
+                cells[1][1] == cells[2][2]) {
+
+            return (cells[0][0] == 'x')
+                    ? GameState.X_WINS
+                    : GameState.O_WINS;
+        }
+        // check if there are still empty spaces
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 if (cells[x][y] == ' ') {
@@ -98,5 +107,13 @@ public class Board {
         }
         // if none of the above, the game ends in a draw since if GameState isn't .RUNNING, it's over.
         return GameState.DRAW;
+    }
+
+    public void clear(){
+        for (int i = 0; i <= 2; i++) {
+            for (int j = 0; j <= 2; j++) {
+                cells[i][j] = ' ';
+            }
+        }
     }
 }
