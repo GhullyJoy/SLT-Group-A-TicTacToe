@@ -16,7 +16,7 @@ public class Board {
         if(x>2||y>2||x<0||y<0){
             throw new IllegalArgumentException("Für X oder Y wurde ein Wert übergeben der nicht zwischen 0 und 2 liegt.");
         }
-        if(cells[x][y]!=' '){
+        if(cells[x][y]==' '){
             return true;
         }else{
             return false;
@@ -27,7 +27,7 @@ public class Board {
         if(x>2||y>2||x<0||y<0){
             throw new IllegalArgumentException("Für X oder Y wurde ein Wert übergeben der nicht zwischen 0 und 2 liegt.");
         }
-        if(isCellEmpty(x, y)){
+        if(!isCellEmpty(x, y)){
             throw new IllegalArgumentException("Cell is already occupied");
         }
         cells[x][y]=marker;
