@@ -1,0 +1,48 @@
+name: Java CI/CD with Maven
+
+on:
+  push:
+    branches: [ "main", "feature/*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Code auschecken
+      uses: actions/checkout@v4
+
+    - name: Java einrichten
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: JUnit Tests ausführen
+      run: mvn clean test
+
+  deploy-jar:
+    needs: run-tests
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Code auschecken
+      uses: actions/checkout@v4
+
+    - name: Java einrichten
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: JAR-Datei erstellen
+      run: mvn package -DskipTests
+
+    - name: JAR zu GitHub hochladen (Artifact)
+      uses: actions/upload-artifact@v4
+      with:
+        name: project
+        path: target/ttt.jar
