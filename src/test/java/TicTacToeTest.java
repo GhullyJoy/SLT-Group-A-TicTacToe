@@ -6,5 +6,6 @@ class TicTacToeTest {
 
     @Test
     void start() {
+        //da hier console input gefragt ist, end to end test in main ausführen
     }
 }
